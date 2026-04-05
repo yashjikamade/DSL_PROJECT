@@ -1,0 +1,17 @@
+{
+  "mae": 4198.41,
+  "rmse": 7793.61,
+  "r2": 0.9913,
+  "cv_r2_mean": 0.9914,
+  "cv_r2_std": 0.0002,
+  "features": [
+    "Income (\u20b9)",
+    "Savings (\u20b9)",
+    "Rent (\u20b9)",
+    "Groceries (\u20b9)",
+    "Transportation (\u20b9)"
+  ],
+  "target": "Total Expenditure (\u20b9)",
+  "train_rows": 47980,
+  "test_rows": 11996
+}
