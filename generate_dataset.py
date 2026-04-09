@@ -13,7 +13,7 @@ import pandas as pd
 
 np.random.seed(42)
 
-# ── Config ────────────────────────────────────────────────────
+
 N_HOUSEHOLDS = 833          # × 72 months ≈ 60 k rows
 START_DATE   = "2020-01-01"
 MONTHS       = 72           # Jan 2020 – Dec 2025
@@ -26,7 +26,7 @@ TIERS = [
     (2_50_001, 6_00_000, 0.10),# High Earner
 ]
 
-# ── Helpers ───────────────────────────────────────────────────
+
 def sample_income(n):
     tiers  = np.random.choice(len(TIERS), size=n, p=[t[2] for t in TIERS])
     result = np.array([
