@@ -30,6 +30,9 @@ FEATURES = [
     "Rent (₹)",
     "Groceries (₹)",
     "Transportation (₹)",
+    "Utilities (₹)",
+    "Dining Out (₹)",
+    "Entertainment (₹)",
 ]
 TARGET = "Total Expenditure (₹)"
 
