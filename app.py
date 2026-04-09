@@ -378,14 +378,15 @@ hr{{border-color:{BDS}!important;}}
 @st.cache_resource
 def load_model():
     df = pd.read_csv("monthly_spending_dataset_2020_2025.csv")
-    X  = df[["Income (₹)","Savings (₹)","Rent (₹)","Groceries (₹)","Transportation (₹)"]]
+    X  = df[["Income (₹)","Savings (₹)","Rent (₹)","Groceries (₹)",
+             "Transportation (₹)","Utilities (₹)","Dining Out (₹)","Entertainment (₹)"]]
     y  = df["Total Expenditure (₹)"]
     m  = LinearRegression(); m.fit(X, y); return m
 
 model = load_model()
 
-def ml_predict(inc,sav,rent,groc,tr):
-    return max(float(model.predict([[inc,sav,rent,groc,tr]])[0]),0)
+def ml_predict(inc,sav,rent,groc,tr,util,din,ent):
+    return max(float(model.predict([[inc,sav,rent,groc,tr,util,din,ent]])[0]),0)
 
 def field(label, key, default, hint="e.g. 25000"):
     val = st.text_input(label, value=str(default), placeholder=hint, key=key)
@@ -512,7 +513,8 @@ with t1:
 
         st.markdown("<div style='height:4px'></div>", unsafe_allow_html=True)
         if st.button("◆  Run Prediction", use_container_width=True):
-            pred = ml_predict(income,savings,rent,groceries,transport)
+            # Total expenditure = everything the user entered EXCEPT savings
+            pred = ml_predict(income,savings,rent,groceries,transport,utilities,dining,entertainment)
             st.session_state.update({
                 "pred":pred,"income":income,"savings":savings,
                 "rent":rent,"groceries":groceries,"transport":transport,
@@ -522,7 +524,7 @@ with t1:
             st.markdown(f"""
             <div class="alert ag" style="margin-top:1rem;">
               <span class="ai">✓</span>
-              <span>Analysis complete. Estimated monthly expenditure:
+              <span>Analysis complete. Your total monthly expenditure is
               <strong style="font-family:'DM Mono',monospace;font-size:15px;">
               ₹{pred:,.0f}</strong>. Open <strong>Breakdown</strong> for the full report.</span>
             </div>""", unsafe_allow_html=True)
